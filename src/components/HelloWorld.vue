@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useMouse } from '@/composables/mouse';
 import { computed, nextTick, reactive, ref, toRef, toRefs, watch, type ToRefs } from 'vue';
 
 const props = defineProps<{
@@ -79,6 +80,9 @@ const onInputText = (event: Event) => {
 const isHTMLInputElement = (target: EventTarget): target is HTMLInputElement => {
   return target instanceof HTMLInputElement
 }
+
+const { x, y } = useMouse();
+
 </script>
 
 <template>
@@ -88,6 +92,7 @@ const isHTMLInputElement = (target: EventTarget): target is HTMLInputElement => 
     <button @click="increment">+</button>
     <input :value="modelValue" @input="onInputText" />
     <slot name="hogeSlot"></slot>
+    <p>Mouse: {{ x }}, {{ y }}</p>
     <h3>
       You’ve successfully created a project with
       <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
