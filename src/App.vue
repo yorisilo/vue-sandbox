@@ -1,6 +1,16 @@
 <script setup lang="ts">
+import { ref, watch } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import HelloWorld from "./components/HelloWorld.vue";
+
+const count = ref(100);
+const msg = ref('You did it!')
+const vm = ref('')
+
+watch(vm, () => {
+  console.log(`vm: ${vm.value}`)
+})
+
 </script>
 
 <template>
@@ -8,8 +18,10 @@ import HelloWorld from "./components/HelloWorld.vue";
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
+      <HelloWorld :msg="msg" :parent-count="count" v-model="vm">
+        <template v-slot:hogeSlot>hogeSlot</template>
+      </HelloWorld>
+      <p>{{ vm }}</p>
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
